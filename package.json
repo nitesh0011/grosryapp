@@ -16,7 +16,7 @@
     "@radix-ui/react-toast": "^1.1.5",
     "@tanstack/react-query": "^5.40.0",
     "axios": "^1.7.2",
-    "className-variance-authority": "^0.7.0",
+    "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "embla-carousel-react": "^8.1.3",
     "for-each": "^0.3.3",
