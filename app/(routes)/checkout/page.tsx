@@ -4,6 +4,9 @@ import React from 'react'
 import { useSearchParams } from 'next/navigation'
 import { PayPalButtons } from '@paypal/react-paypal-js';
 
+
+
+
 const checkOut = () => {
   const searchParams = useSearchParams()
  
@@ -72,8 +75,8 @@ alert(`Transaction completed by ${name}`);
             </ul>
             <PayPalButtons 
           style={{ layout: "horizontal" }}
-          createOrder={(data, actions) => onCreateOrder(data, actions)}
-          onApprove={(data, actions) => onApproveOrder(data, actions)}
+          createOrder={(data:any, actions:any) => onCreateOrder(data, actions)}
+          onApprove={(data:any, actions:any) => onApproveOrder(data, actions)}
         />
           </div>
         </div>
