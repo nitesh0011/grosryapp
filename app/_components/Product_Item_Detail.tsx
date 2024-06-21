@@ -1,13 +1,14 @@
 'use client'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button';
 import { LoaderIcon, ShoppingBagIcon } from 'lucide-react';
 
-import GlobalApi from '../_utils/GlobalApi';
+
 import { useRouter } from 'next/navigation';
 import { toast } from 'sonner';
 import { useStore } from '../_context/UpdateCart';
+import GlobalApi from '../_utils/GlobalApi';
 
 
 
@@ -16,25 +17,25 @@ interface prop {
 }
 const Product_Item_Detail = ({ product }: prop) => {
     // console.log("product,htmlFor id",product);
-    const {count,inc} = useStore()
-
+    const { count, inc } = useStore()
     const [loader, setLoader] = useState(false);
     const router = useRouter();
-    const jwt = sessionStorage.getItem('jwt');
-    const userString = sessionStorage.getItem('user');
-    let user: any;
-    if (userString !== null) {
-        user = JSON.parse(userString);
+    const [jwt, setJwt] = useState<string | null>(null);
+    const [user, setUser] = useState<any>(null);
+    const [productTotalPrice, setProductTotalPrice] = useState(0);
+    const [quantity, setQuantity] = useState(1);
 
-
-
-        const [productTotalPrice, setProductTotalPrice] = useState(
-            product?.attributes?.sellingPrice ?
-                product?.attributes?.sellingPrice :
-                product?.attributes?.mrp
-        )
-        const [quantity, setQuantity] = useState(1);
-
+    useEffect(() => {
+        const storedJwt = sessionStorage.getItem('jwt');
+        const userString = sessionStorage.getItem('user');
+        setJwt(storedJwt);
+        if (userString) {
+            setUser(JSON.parse(userString));
+        }
+        setProductTotalPrice(
+            product?.attributes?.sellingPrice || product?.attributes?.mrp
+        );
+    }, [product]);
 
         const handleAddToCart = () => {
             setLoader(true)
@@ -57,7 +58,7 @@ const Product_Item_Detail = ({ product }: prop) => {
             };
 
 
-            GlobalApi.PostProductsList(requestBody, jwt).then(resp => {
+            GlobalApi.PostProductsList(requestBody, jwt).then((resp:any) => {
                 toast.success("Added to cart.")
                 setLoader(false)
                 inc()
@@ -118,6 +119,6 @@ const Product_Item_Detail = ({ product }: prop) => {
 
         )
     }
-}
+
 export default Product_Item_Detail
 

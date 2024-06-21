@@ -1,8 +1,7 @@
 'use client'
-import { useState } from 'react';
+
 import { create } from 'zustand'
 
-import React from 'react';
 
 
 interface CartContextValue {
