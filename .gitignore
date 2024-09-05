@@ -10,6 +10,8 @@ Icon
 .Trashes
 ._*
 
+# local env files
+.env*.local
 
 ############################
 # Linux
